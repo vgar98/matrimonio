@@ -359,4 +359,32 @@ const canvas=document.getElementById('petals');
 const ctx=canvas.getContext('2d');
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 resize();window.addEventListener('resize',resize);
-const colors=['#f9
+const colors=['#f9c8d8','#f7e0e8','#e8b4c8','#fce4ec','#ffd6e0','#ffb3c6'];
+function mkP(){
+  return{x:Math.random()*canvas.width,y:-30,size:Math.random()*9+5,
+  vy:Math.random()*0.8+0.3,vx:Math.sin(Math.random()*6)*0.5,
+  rot:Math.random()*360,rotV:Math.random()*1.5-0.75,
+  op:Math.random()*0.45+0.2,sway:Math.random()*2,swayT:Math.random()*100,
+  color:colors[Math.floor(Math.random()*colors.length)]};
+}
+let petals=Array.from({length:32},()=>({...mkP(),y:Math.random()*window.innerHeight}));
+function draw(p){
+  ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+  ctx.globalAlpha=p.op;ctx.fillStyle=p.color;
+  ctx.beginPath();ctx.ellipse(0,0,p.size*0.55,p.size,0,0,Math.PI*2);
+  ctx.fill();ctx.restore();
+}
+function anim(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  petals.forEach(p=>{
+    p.swayT+=0.02;p.x+=p.vx+Math.sin(p.swayT)*p.sway*0.3;
+    p.y+=p.vy;p.rot+=p.rotV;
+    if(p.y>canvas.height+30)Object.assign(p,mkP());
+    draw(p);
+  });
+  requestAnimationFrame(anim);
+}
+anim();
+</script>
+</body>
+</html>
