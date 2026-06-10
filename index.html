@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nayana &amp; Victor · 13.06.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;font-weight:300;background:#FDF6F0;color:#3a2a2a;overflow-x:hidden;}
+
+.petals-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.9s cubic-bezier(.4,0,.2,1),transform 0.9s cubic-bezier(.4,0,.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.9s cubic-bezier(.4,0,.2,1),transform 0.9s cubic-bezier(.4,0,.2,1);}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-scale{opacity:0;transform:scale(0.88);transition:opacity 1s cubic-bezier(.4,0,.2,1),transform 1s cubic-bezier(.4,0,.2,1);}
+.reveal-scale.visible{opacity:1;transform:scale(1);}
+.delay-1{transition-delay:0.1s;}
+.delay-2{transition-delay:0.2s;}
+.delay-3{transition-delay:0.3s;}
+.delay-4{transition-delay:0.45s;}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 4rem;position:relative;background:linear-gradient(180deg,#fff0f5 0%,#FDF6F0 100%);overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,200,220,0.25),transparent);pointer-events:none;}
+.floral-top{font-size:2.2rem;color:#d4879a;margin-bottom:1rem;animation:floatFloral 4s ease-in-out infinite;}
+@keyframes floatFloral{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.pre-title{font-size:11px;letter-spacing:0.35em;color:#b07a8a;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 1.2s 0.3s forwards;}
+.names{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,11vw,6rem);font-weight:300;font-style:italic;line-height:1.05;color:#3a1a28;opacity:0;animation:fadeUp 1.2s 0.6s forwards;}
+.amp{color:#c4768a;font-size:clamp(2.2rem,7vw,4rem);display:block;animation:pulse 3s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
+.date-badge{display:inline-block;margin:1.5rem 0;padding:0.6rem 2rem;border:0.5px solid #d4a0b0;border-radius:40px;font-size:12px;letter-spacing:0.2em;color:#8a5060;text-transform:uppercase;background:rgba(255,255,255,0.7);opacity:0;animation:fadeUp 1.2s 1s forwards;}
+.floral-divider{font-size:1.4rem;color:#e0a0b5;margin:1rem 0 2rem;opacity:0;animation:fadeUp 1.2s 1.3s forwards;letter-spacing:0.4rem;}
+.countdown{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1.2s 1.5s forwards;}
+.count-item{text-align:center;position:relative;}
+.count-item::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:20px;height:1px;background:#e0a0b5;}
+.count-number{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;line-height:1;color:#3a1a28;display:block;transition:transform 0.3s;}
+.count-number.bump{transform:scale(1.2);}
+.count-label{font-size:10px;letter-spacing:0.2em;color:#b07a8a;text-transform:uppercase;margin-top:0.5rem;display:block;}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp 1.2s 2.2s forwards;}
+.scroll-hint span{font-size:10px;letter-spacing:0.2em;color:#c4a0b0;text-transform:uppercase;}
+.scroll-arrow{width:20px;height:20px;border-right:1px solid #c4a0b0;border-bottom:1px solid #c4a0b0;transform:rotate(45deg);animation:bounce 1.6s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(5px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+.section-wrap{position:relative;overflow:hidden;}
+.section-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,220,235,0.08),transparent,rgba(255,200,225,0.08));pointer-events:none;}
+.section{max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center;position:relative;z-index:2;}
+.section-icon{font-size:2rem;color:#d4879a;margin-bottom:1rem;}
+.section-eyebrow{font-size:10px;letter-spacing:0.35em;color:#b07a8a;text-transform:uppercase;margin-bottom:0.75rem;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;font-style:italic;color:#3a1a28;margin-bottom:1rem;}
+.section-text{font-size:14.5px;color:#6a4a52;line-height:1.9;max-width:500px;margin:0 auto 1rem;}
+
+.sep{text-align:center;padding:1.5rem 0;position:relative;}
+.sep::before{content:'';position:absolute;top:50%;left:10%;right:10%;height:0.5px;background:linear-gradient(90deg,transparent,#e0b0c0,transparent);}
+.sep-inner{position:relative;display:inline-block;background:#FDF6F0;padding:0 1rem;font-size:1rem;color:#e0a0b5;letter-spacing:0.5rem;}
+
+.story-steps{display:flex;flex-direction:column;gap:2rem;margin-top:2.5rem;text-align:left;max-width:480px;margin-left:auto;margin-right:auto;}
+.story-step{display:flex;gap:1.5rem;align-items:flex-start;}
+.story-dot{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:#fce8ef;border:0.5px solid #e0a0b5;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:transform 0.4s,box-shadow 0.4s;}
+.story-step:hover .story-dot{transform:scale(1.15);box-shadow:0 0 0 6px rgba(212,135,154,0.15);}
+.story-year{font-size:10px;letter-spacing:0.2em;color:#b07a8a;text-transform:uppercase;margin-bottom:0.3rem;}
+.story-desc{font-size:14px;color:#6a4a52;line-height:1.75;}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e8c8d4;border:0.5px solid #e8c8d4;border-radius:14px;overflow:hidden;margin-top:2rem;}
+.info-cell{background:#fff8fa;padding:1.5rem;text-align:left;transition:background 0.3s;}
+.info-cell:hover{background:#fdf0f4;}
+.info-cell-label{font-size:10px;letter-spacing:0.2em;color:#b07a8a;text-transform:uppercase;margin-bottom:0.4rem;}
+.info-cell-value{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:#3a1a28;line-height:1.4;}
+.map-frame{width:100%;height:300px;border:0.5px solid #e0b0c0;border-radius:14px;margin-top:2rem;}
+
+.dress-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.dress-card{background:#fff8fa;border:0.5px solid #e8c8d4;border-radius:14px;padding:1.5rem;text-align:center;transition:transform 0.4s cubic-bezier(.4,0,.2,1),box-shadow 0.4s;}
+.dress-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(180,100,130,0.12);}
+.dress-swatch{width:52px;height:52px;border-radius:50%;margin:0 auto 0.75rem;transition:transform 0.4s;}
+.dress-card:hover .dress-swatch{transform:scale(1.1);}
+.dress-label{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:#3a1a28;margin-bottom:0.25rem;}
+.dress-desc{font-size:12px;color:#8a6070;line-height:1.6;}
+
+.rsvp-box{background:#fff8fa;border:0.5px solid #e8c8d4;border-radius:18px;padding:2.5rem 2rem;margin-top:2rem;transition:box-shadow 0.4s;}
+.rsvp-box:hover{box-shadow:0 8px 40px rgba(180,100,130,0.1);}
+.rsvp-box p{font-size:14px;color:#6a4a52;line-height:1.8;margin-bottom:1.5rem;}
+.rsvp-btn{display:inline-block;padding:0.75rem 2.5rem;background:linear-gradient(135deg,#c4768a,#d4879a);color:#fff;border-radius:40px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border:none;font-family:'Jost',sans-serif;transition:transform 0.3s,box-shadow 0.3s;}
+.rsvp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,100,130,0.3);}
+.rsvp-btn:active{transform:scale(0.97);}
+.rsvp-form{max-height:0;overflow:hidden;transition:max-height 0.7s cubic-bezier(.4,0,.2,1),opacity 0.5s;opacity:0;margin-top:0;}
+.rsvp-form.open{max-height:600px;opacity:1;margin-top:1.5rem;}
+.form-group{margin-bottom:1rem;text-align:left;}
+.form-group label{display:block;font-size:10px;letter-spacing:0.18em;color:#b07a8a;text-transform:uppercase;margin-bottom:0.4rem;}
+.form-group input,.form-group select{width:100%;padding:0.65rem 1rem;border:0.5px solid #e0b0c0;border-radius:10px;background:#fff;font-family:'Jost',sans-serif;font-size:14px;color:#3a1a28;outline:none;transition:border-color 0.3s,box-shadow 0.3s;}
+.form-group input:focus,.form-group select:focus{border-color:#c4768a;box-shadow:0 0 0 3px rgba(196,118,138,0.12);}
+.form-submit{margin-top:0.5rem;width:100%;}
+.rsvp-thanks{display:none;text-align:center;padding:1rem;animation:fadeUp 0.8s forwards;}
+.rsvp-thanks .big{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-style:italic;color:#3a1a28;}
+
+.gift-box{background:#fff8fa;border:0.5px solid #e8c8d4;border-radius:18px;padding:2rem;margin-top:2rem;transition:box-shadow 0.4s;}
+.gift-box:hover{box-shadow:0 8px 40px rgba(180,100,130,0.1);}
+.gift-box p{font-size:14px;color:#6a4a52;line-height:1.9;}
+
+.footer{text-align:center;padding:4rem 2rem 5rem;background:linear-gradient(0deg,#fff0f5 0%,#FDF6F0 100%);}
+.footer-names{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-style:italic;color:#3a1a28;margin-bottom:0.5rem;}
+.footer-note{font-size:11px;letter-spacing:0.2em;color:#b07a8a;text-transform:uppercase;}
+.footer-floral{font-size:2rem;color:#e0a0b5;margin-bottom:1rem;display:block;}
+</style>
+</head>
+<body>
+
+<canvas class="petals-canvas" id="petals"></canvas>
+
+<div class="hero">
+  <div class="floral-top">❀ ✿ ❀</div>
+  <p class="pre-title">Con todo nuestro amor, los invitamos a celebrar</p>
+  <h1 class="names">
+    Nayana
+    <span class="amp">&amp;</span>
+    Victor
+  </h1>
+  <div class="date-badge">13 de junio de 2026 &nbsp;·&nbsp; 12:00 pm</div>
+  <div class="floral-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <div class="countdown">
+    <div class="count-item"><span class="count-number" id="cd-d">--</span><span class="count-label">días</span></div>
+    <div class="count-item"><span class="count-number" id="cd-h">--</span><span class="count-label">horas</span></div>
+    <div class="count-item"><span class="count-number" id="cd-m">--</span><span class="count-label">minutos</span></div>
+    <div class="count-item"><span class="count-number" id="cd-s">--</span><span class="count-label">segundos</span></div>
+  </div>
+  <div class="scroll-hint">
+    <span>Desliza</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<div class="sep"><span class="sep-inner">✿ ✿ ✿</span></div>
+<div class="section-wrap">
+<div class="section">
+  <div class="section-icon reveal">💌</div>
+  <p class="section-eyebrow reveal delay-1">Nuestra historia</p>
+  <h2 class="section-title reveal delay-2">Un amor que creció poco a poco</h2>
+  <p class="section-text reveal delay-3">Cada historia de amor es única. La nuestra comenzó con una mirada, creció con el tiempo y hoy florecerá ante quienes más amamos.</p>
+  <div class="story-steps">
+    <div class="story-step reveal-left delay-1">
+      <div class="story-dot">🌱</div>
+      <div>
+        <p class="story-year">El primer encuentro</p>
+        <p class="story-desc">Fue una de esas coincidencias que parecen escritas. Nos conocimos, sonreímos y algo cambió para siempre.</p>
+      </div>
+    </div>
+    <div class="story-step reveal-left delay-2">
+      <div class="story-dot">🌸</div>
+      <div>
+        <p class="story-year">El noviazgo</p>
+        <p class="story-desc">Paseos, conversaciones que no terminaban, y la certeza de que queríamos caminar juntos el resto de nuestros días.</p>
+      </div>
+    </div>
+    <div class="story-step reveal-left delay-3">
+      <div class="story-dot">💍</div>
+      <div>
+        <p class="story-year">La propuesta</p>
+        <p class="story-desc">Con el corazón en la mano y flores de por medio, la pregunta que lo cambió todo obtuvo un sí eterno.</p>
+      </div>
+    </div>
+    <div class="story-step reveal-left delay-4">
+      <div class="story-dot">🕊️</div>
+      <div>
+        <p class="story-year">13 de junio de 2026</p>
+        <p class="story-desc">El día en que prometemos amarnos, cuidarnos y celebrar la vida juntos, rodeados de quienes amamos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="sep"><span class="sep-inner">✿ ✿ ✿</span></div>
+<div class="section-wrap">
+<div class="section">
+  <div class="section-icon reveal">📍</div>
+  <p class="section-eyebrow reveal delay-1">El lugar</p>
+  <h2 class="section-title reveal delay-2">Dónde nos encontramos</h2>
+  <p class="section-text reveal delay-3">Te esperamos en el corazón de Punchana, Iquitos, para compartir este día tan especial juntos.</p>
+  <div class="info-grid reveal delay-2">
+    <div class="info-cell">
+      <p class="info-cell-label">Lugar</p>
+      <p class="info-cell-value">Local Municipal de Punchana</p>
+    </div>
+    <div class="info-cell">
+      <p class="info-cell-label">Dirección</p>
+      <p class="info-cell-value">28 de Julio 195, Iquitos, Perú</p>
+    </div>
+    <div class="info-cell">
+      <p class="info-cell-label">Fecha</p>
+      <p class="info-cell-value">Sábado, 13 de junio de 2026</p>
+    </div>
+    <div class="info-cell">
+      <p class="info-cell-label">Hora</p>
+      <p class="info-cell-value">12:00 pm en punto</p>
+    </div>
+  </div>
+  <div class="reveal delay-3">
+    <iframe class="map-frame" loading="lazy"
+      src="https://www.google.com/maps?q=-3.728684,-73.2418642&z=16&output=embed"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Mapa"></iframe>
+  </div>
+</div>
+</div>
+
+<div class="sep"><span class="sep-inner">✿ ✿ ✿</span></div>
+<div class="section-wrap">
+<div class="section">
+  <div class="section-icon reveal">👗</div>
+  <p class="section-eyebrow reveal delay-1">Dress code</p>
+  <h2 class="section-title reveal delay-2">Viste la ocasión</h2>
+  <div class="reveal delay-2" style="display:inline-block;margin-bottom:1rem;padding:0.4rem 1.6rem;border:0.5px solid #d4a0b0;border-radius:40px;font-size:11px;letter-spacing:0.2em;color:#8a5060;text-transform:uppercase;background:rgba(255,255,255,0.7);">Sport Elegante</div>
+  <p class="section-text reveal delay-3">Queremos que estés cómodo y elegante al mismo tiempo. Nada demasiado formal, nada demasiado casual — el punto perfecto entre ambos.</p>
+  <div class="dress-grid">
+    <div class="dress-card reveal-scale delay-1">
+      <div class="dress-swatch" style="background:#f7e0e8;border:0.5px solid #e8c8d4;"></div>
+      <p class="dress-label">Ellas</p>
+      <p class="dress-desc" style="font-size:11px;color:#b07a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Vestido midi / jumpsuit</p>
+      <p class="dress-desc">Vestidos midi, jumpsuits o falda con blusa. Tacones bajos, sandalias o flats con estilo. Evitar jeans o ropa muy casual.</p>
+    </div>
+    <div class="dress-card reveal-scale delay-2">
+      <div class="dress-swatch" style="background:#c8d8e8;border:0.5px solid #b0c8d8;"></div>
+      <p class="dress-label">Ellos</p>
+      <p class="dress-desc" style="font-size:11px;color:#b07a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Pantalón de vestir / camisa</p>
+      <p class="dress-desc">Pantalón de vestir con camisa, polo elegante o guayabera. Zapatos casuales de cuero o mocasines. Sin corbata obligatoria.</p>
+    </div>
+    <div class="dress-card reveal-scale delay-3">
+      <div class="dress-swatch" style="background:#f7e0e8;border:0.5px solid #e8c8d4;"></div>
+      <p class="dress-label">Colores sugeridos</p>
+      <p class="dress-desc" style="font-size:11px;color:#b07a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Paleta de la boda</p>
+      <p class="dress-desc">Rosa palo, nude, lila suave, blanco marfil, beige o pasteles. Los colores vivos con elegancia son bienvenidos.</p>
+    </div>
+    <div class="dress-card reveal-scale delay-4">
+      <div class="dress-swatch" style="background:#e8e8e8;border:0.5px solid #d0d0d0;"></div>
+      <p class="dress-label">Por favor evitar</p>
+      <p class="dress-desc" style="font-size:11px;color:#b07a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">No recomendado</p>
+      <p class="dress-desc">Blanco puro (reservado para la novia), jeans, ropa deportiva, shorts o sandalias de playa.</p>
+    </div>
+  </div>
+  <div style="background:#fff8fa;border:0.5px solid #e8c8d4;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1.5rem;" class="reveal delay-4">
+    <p style="font-size:13px;color:#6a4a52;line-height:1.8;">✨ Lo más importante es que te sientas bien y disfrutes la celebración con nosotros. ¡Nos vemos el 13 de junio! 🌸</p>
+  </div>
+</div>
+</div>
+
+<div class="sep"><span class="sep-inner">✿ ✿ ✿</span></div>
+<div class="section-wrap">
+<div class="section">
+  <div class="section-icon reveal">🌹</div>
+  <p class="section-eyebrow reveal delay-1">Confirmación de asistencia</p>
+  <h2 class="section-title reveal delay-2">¿Nos acompañas?</h2>
+  <div class="rsvp-box reveal delay-3">
+    <p>Tu presencia es el regalo más grande que podemos recibir. Por favor confírmanos si podrás acompañarnos .</p>
+    <button class="rsvp-btn" id="rsvp-toggle" onclick="toggleRSVP()">Confirmar asistencia</button>
+    <div class="rsvp-form" id="rsvp-form">
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label>¿Cuántas personas?</label>
+        <select>
+          <option>Solo yo</option>
+          <option>2 personas</option>
+          <option>3 personas</option>
+          <option>4 personas</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>¿Asistirás?</label>
+        <select>
+          <option>Sí, estaré ahí 🎉</option>
+          <option>Lamentablemente no podré 😢</option>
+        </select>
+      </div>
+      <button class="rsvp-btn form-submit" onclick="submitRSVP()">Enviar confirmación</button>
+    </div>
+    <div class="rsvp-thanks" id="rsvp-thanks">
+      <p class="big">¡Gracias! 🌸</p>
+      <p style="font-size:14px;color:#6a4a52;margin-top:0.5rem;">Hemos recibido tu confirmación. ¡Nos vemos el 13 de junio!</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="sep"><span class="sep-inner">✿ ✿ ✿</span></div>
+<div class="section-wrap">
+<div class="section">
+  <div class="section-icon reveal">🎁</div>
+  <p class="section-eyebrow reveal delay-1">Mesa de regalos</p>
+  <h2 class="section-title reveal delay-2">Si deseas obsequiarnos algo</h2>
+  <div class="gift-box reveal delay-3">
+    <p>Tu presencia y cariño son más que suficientes para nosotros. Sin embargo, si deseas hacernos un regalo, puedes contribuir a nuestro fondo para la luna de miel o darnos un sobre el día de la celebración.</p>
+    <br>
+    <p>También aceptamos regalos físicos con mucho amor. 💕</p>
+  </div>
+</div>
+</div>
+
+<div class="sep"><span class="sep-inner">✿ ✿ ✿</span></div>
+<div class="footer">
+  <span class="footer-floral reveal">❀ ✿ ❀</span>
+  <p class="footer-names reveal delay-1">Nayana &amp; Victor</p>
+  <p class="footer-note reveal delay-2">13 · 06 · 2026 &nbsp;·&nbsp; Con amor, os esperamos</p>
+</div>
+
+<script>
+function tick(){
+  const w=new Date('2026-06-13T12:00:00-05:00'),now=new Date(),diff=w-now;
+  if(diff<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(i=>document.getElementById(i).textContent='0');return;}
+  const vals=[Math.floor(diff/86400000),Math.floor((diff%86400000)/3600000),Math.floor((diff%3600000)/60000),Math.floor((diff%60000)/1000)];
+  ['cd-d','cd-h','cd-m','cd-s'].forEach((id,i)=>{
+    const el=document.getElementById(id);
+    const v=i===0?vals[i]:String(vals[i]).padStart(2,'0');
+    if(el.textContent!==String(v)){
+      el.textContent=v;
+      el.classList.add('bump');
+      setTimeout(()=>el.classList.remove('bump'),300);
+    }
+  });
+}
+tick();setInterval(tick,1000);
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
+},{threshold:0.15});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-scale').forEach(el=>observer.observe(el));
+
+function toggleRSVP(){document.getElementById('rsvp-form').classList.toggle('open');}
+function submitRSVP(){
+  document.getElementById('rsvp-form').classList.remove('open');
+  document.getElementById('rsvp-toggle').style.display='none';
+  const t=document.getElementById('rsvp-thanks');
+  t.style.display='block';
+}
+
+const canvas=document.getElementById('petals');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const colors=['#f9c8d8','#f7e0e8','#e8b4c8','#fce4ec','#ffd6e0','#ffb3c6'];
+function mkP(){
+  return{x:Math.random()*canvas.width,y:-30,size:Math.random()*9+5,
+  vy:Math.random()*0.8+0.3,vx:Math.sin(Math.random()*6)*0.5,
+  rot:Math.random()*360,rotV:Math.random()*1.5-0.75,
+  op:Math.random()*0.45+0.2,sway:Math.random()*2,swayT:Math.random()*100,
+  color:colors[Math.floor(Math.random()*colors.length)]};
+}
+let petals=Array.from({length:32},()=>({...mkP(),y:Math.random()*window.innerHeight}));
+function draw(p){
+  ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+  ctx.globalAlpha=p.op;ctx.fillStyle=p.color;
+  ctx.beginPath();ctx.ellipse(0,0,p.size*0.55,p.size,0,0,Math.PI*2);
+  ctx.fill();ctx.restore();
+}
+function anim(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  petals.forEach(p=>{
+    p.swayT+=0.02;p.x+=p.vx+Math.sin(p.swayT)*p.sway*0.3;
+    p.y+=p.vy;p.rot+=p.rotV;
+    if(p.y>canvas.height+30)Object.assign(p,mkP());
+    draw(p);
+  });
+  requestAnimationFrame(anim);
+}
+anim();
+</script>
+</body>
+</html>
